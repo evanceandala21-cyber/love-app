@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love App For Veronica</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, pink, #ffd6d6, #ffb6c1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 700px;
+      position: relative;
+    }
+
+    h1 {
+      color: #e11d48;
+      font-size: 50px;
+      animation: pulse 1.5s infinite;
+    }
+
+    p {
+      color: #444;
+      font-size: 20px;
+      line-height: 1.6;
+    }
+
+    input {
+      padding: 12px;
+      width: 80%;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    .buttons {
+      margin-top: 15px;
+    }
+
+    button {
+      background: #e11d48;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #be123c;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 20px;
+      background: #ffe4e6;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+      color: #e11d48;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    #display {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #e11d48;
+    }
+
+    /* Notification Icon */
+    .notify {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 5px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Notification Icon -->
+    <div class="notify" onclick="showMessages()">
+      📩<span id="badge" class="badge" style="display:none;">0</span>
+    </div>
+
+    <h1>❤️ Veronica ❤️</h1>
+
+    <p>
+      You are special, beautiful, and deeply appreciated. This little app was created with love just for you.
+    </p>
+
+    <input id="loveInput" type="text" placeholder="Type your love message for Veronica...">
+
+    <div class="buttons">
+      <button onclick="sendMessage()">Send ❤️</button>
+    </div>
+
+    <p id="display"></p>
+
+    <div class="cards">
+      <div class="card">
+        <h2>💖 Love</h2>
+        <p>You make every moment brighter.</p>
+      </div>
+
+      <div class="card">
+        <h2>🌹 Care</h2>
+        <p>Your smile means everything.</p>
+      </div>
+
+      <div class="card">
+        <h2>✨ Forever</h2>
+        <p>Every heartbeat reminds me of you.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:30px; font-size:14px; color:red;">
+      Made  by:EVANCE with love(❤️) for Veronica
+    </p>
+  </div>
+
+  <script>
+    let messages = [];
+
+    function sendMessage() {
+      const msg = document.getElementById('loveInput').value;
+      const display = document.getElementById('display');
+      const badge = document.getElementById('badge');
+
+      if (msg.trim() === "") {
+        alert('EVANCE LOVEYOUVERONICA');
+      } else {
+        messages.push(msg);
+        display.innerText = "❤️ " + msg;
+
+        badge.style.display = "inline";
+        badge.innerText = messages.length;
+
+        document.getElementById('loveInput').value = "";
+      }
+    }
+
+    function showMessages() {
+      if (messages.length === 0) {
+        alert("No messages yet 💌");
+      } else {
+        alert("💌 Messages:\n\n" + messages.join("\n\n"));
+        messages = [];
+        document.getElementById('badge').style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
