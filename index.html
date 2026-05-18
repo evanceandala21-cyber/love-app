@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Love App For Veronica</title>
+
   <style>
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -13,6 +15,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .container {
@@ -64,7 +67,48 @@
 
     button:hover {
       background: #be123c;
+      transform: scale(1.05);
     }
+
+    /* Notification */
+
+    .notify {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 5px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+
+    /* Photo */
+
+    #lovePhoto {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: 1s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    #lovePhoto:hover {
+      transform: scale(1.05);
+    }
+
+    /* Cards */
 
     .cards {
       display: grid;
@@ -85,64 +129,102 @@
       color: #e11d48;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
     #display {
       margin-top: 20px;
       font-size: 18px;
       color: #e11d48;
+      font-weight: bold;
     }
 
-    /* Notification Icon */
-    .notify {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      font-size: 28px;
-      cursor: pointer;
+    /* Falling Hearts */
+
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: #ff4d6d;
+      font-size: 24px;
+      animation: fall linear infinite;
+      z-index: 999;
     }
 
-    .badge {
-      position: absolute;
-      top: 10px;
-      right: 5px;
-      background: red;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 12px;
+    @keyframes fall {
+
+      0% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
     }
+
+    @keyframes pulse {
+
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
   </style>
 </head>
+
 <body>
 
   <div class="container">
 
-    <!-- Notification Icon -->
+    <!-- Notification -->
     <div class="notify" onclick="showMessages()">
-      📩<span id="badge" class="badge" style="display:none;">0</span>
+      📩
+      <span id="badge" class="badge" style="display:none;">0</span>
     </div>
 
     <h1>❤️ Veronica Evance ❤️</h1>
-    <img src="vero.jpg" alt="Love Photo" style="width:200px; border-radius:20px;">
+
+    <!-- Photo -->
+    <img
+      id="lovePhoto"
+      src="vero1.jpg"
+      alt="Love Photo"
+      onclick="changePhoto()"
+    >
 
     <p>
-      You are special, beautiful, and deeply appreciated. This little app was created with love just for you.
+      You are special, beautiful, and deeply appreciated.
+      This little app was created with love ❤️
     </p>
 
-    <input id="loveInput" type="text" placeholder="Type your love message for Veronica...">
+    <!-- Message Input -->
+
+    <input
+      id="loveInput"
+      type="text"
+      placeholder="Type your love message for Veronica..."
+    >
+
+    <!-- Send Button -->
 
     <div class="buttons">
       <button onclick="sendMessage()">Send ❤️</button>
     </div>
 
+    <!-- Display Message -->
+
     <p id="display"></p>
 
+    <!-- Love Cards -->
+
     <div class="cards">
+
       <div class="card">
         <h2>💖 Love</h2>
         <p>You make every moment brighter.</p>
@@ -157,43 +239,130 @@
         <h2>✨ Forever</h2>
         <p>Every heartbeat reminds me of you.</p>
       </div>
+
     </div>
 
     <p style="margin-top:30px; font-size:14px; color:red;">
-      Made  by:EVANCE with love(❤️) for Veronica
+      Made by EVANCE ❤️ for Veronica
     </p>
+
   </div>
 
+  <!-- MUSIC -->
+
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
+
+    // PLAY MUSIC AFTER CLICK
+
+    document.addEventListener("click", function () {
+
+      const music = document.getElementById("bgMusic");
+
+      music.play();
+
+    }, { once: true });
+
+    // MESSAGE SYSTEM
+
     let messages = [];
 
     function sendMessage() {
+
       const msg = document.getElementById('loveInput').value;
+
       const display = document.getElementById('display');
+
       const badge = document.getElementById('badge');
 
       if (msg.trim() === "") {
-        alert('EVANCE LOVEYOUVERONICA');
+
+        alert("EVANCE LOVES YOU VERONICA ❤️");
+
       } else {
+
         messages.push(msg);
+
         display.innerText = "❤️ " + msg;
 
         badge.style.display = "inline";
+
         badge.innerText = messages.length;
 
         document.getElementById('loveInput').value = "";
+
       }
     }
 
+    // SHOW NOTIFICATIONS
+
     function showMessages() {
+
       if (messages.length === 0) {
+
         alert("No messages yet 💌");
+
       } else {
-        alert("💌 Messages:\n\n" + messages.join("\n\n"));
+
+        alert("💌 Messages:\\n\\n" + messages.join("\\n\\n"));
+
         messages = [];
+
         document.getElementById('badge').style.display = "none";
+
       }
     }
+
+    // PHOTO SLIDESHOW
+
+    const photos = [
+      "vero1.jpg",
+      "vero2.jpg",
+      "vero3.jpg",
+      "vero4.jpg",
+    ];
+
+    let currentPhoto = 0;
+
+    function changePhoto() {
+
+      currentPhoto = (currentPhoto + 1) % photos.length;
+
+      document.getElementById("lovePhoto").src = photos[currentPhoto];
+    }
+
+    // AUTO CHANGE PHOTO
+
+    setInterval(changePhoto, 4000);
+
+    // FALLING HEARTS
+
+    setInterval(() => {
+
+      const heart = document.createElement("div");
+
+      heart.classList.add("heart");
+
+      heart.innerHTML = "💖";
+
+      heart.style.left = Math.random() * window.innerWidth + "px";
+
+      heart.style.animationDuration =
+        (Math.random() * 3 + 2) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+
+        heart.remove();
+
+      }, 5000);
+
+    }, 300);
+
   </script>
 
 </body>
